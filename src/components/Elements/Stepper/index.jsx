@@ -1,15 +1,18 @@
-import { useState } from 'react';
+import { useContext, useState } from "react";
 import { useTheme } from '@mui/material/styles';
-
 import MobileStepper from '@mui/material/MobileStepper';
 import Button from '@mui/material/Button';
 import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+import { ThemeContext } from "../../../context/themeContext";
 
 const Stepper = (props) => {
     const { desc } = props;
 
     const theme = useTheme();
+
+    const { theme: themeMode } = useContext(ThemeContext);
+
     const [activeStep, setActiveStep] = useState(0);
 
     const handleNext = () => {
@@ -33,12 +36,8 @@ const Stepper = (props) => {
             sx={{
                 maxWidth: "100%",
                 flexGrow: 1,
-                "& .MuiMobileStepper-dot": {
-                    backgroundColor: "darkgray",
-                },
-                "& .MuiMobileStepper-dotActive": {
-                    backgroundColor: "#299D91",
-                },
+                "& .MuiMobileStepper-dot": {backgroundColor: "darkgray"},
+                "& .MuiMobileStepper-dotActive": {backgroundColor: themeMode.color},
                 }}
             nextButton={
                 <Button size="small" onClick={handleNext} sx={{color: "black", fontWeight: "bold"}} disabled={activeStep === dataNum -1}>
