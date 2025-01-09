@@ -5,14 +5,25 @@ import { NotifContext } from "../../context/notifContext";
 import SimpleBackdrop from "../Elements/Backdrop";
 import CustomizedSnackbars from "../Elements/SnackBar";
 import * as motion from "motion/react-client";
+import { ThemeContext } from "../../context/themeContext";
 
 
 const AuthLayout = (props) => {
   const { children, type } = props;
   const { msg, setMsg, open, setOpen, isLoading, setIsLoading } = useContext(NotifContext);
+  const { layoutTheme, setLayoutTheme } = useContext(ThemeContext);
+
+  const switchLayoutTheme = () => {
+    if (layoutTheme === "bg-special-mainBg") {
+      setLayoutTheme("bg-defaultBlack");
+    } else {
+      setLayoutTheme("bg-special-mainBg");
+    }
+  }
+
 
   return (
-    <div className="flex justify-center min-h-screen items-center bg-special-mainBg">
+    <div className={`flex justify-center min-h-screen items-center ${layoutTheme}`}>
       {isLoading && (
           <SimpleBackdrop isLoading={isLoading} setIsLoading={setIsLoading}/>
         )}
@@ -180,6 +191,39 @@ const AuthLayout = (props) => {
               </Link>
             </div>
           )}
+
+        </div>
+        <div className="flex justify-center mt-4">
+          <button onClick={switchLayoutTheme} className="text-gray-03 text-sm font-bold flex justify-center items-center">
+            {layoutTheme === "bg-special-mainBg" ? (
+              // Moon
+              <svg xmlns="http://www.w3.org/2000/svg" className="size-36" viewBox="0 0 200 200" width="200" height="200">
+                <path 
+                  d="M135 50 A25 25 0 1 1 105 50 A20 20 0 1 0 135 50 Z" 
+                  fill="none" 
+                  stroke="black" 
+                  strokeWidth="2"
+                  transform="rotate(90, 120, 50)" // rotate 90 degrees around point (120,50)
+                />
+              </svg>
+            ) : (
+              // Sun
+              <svg xmlns="http://www.w3.org/2000/svg" className="size-24 fill-white mr-6" viewBox="0 0 50 200" width="200" height="50">
+                <circle cx="50" cy="50" r="15" stroke="white" strokeWidth="2" fill="none"/>
+                <line x1="50" y1="20" x2="50" y2="5" stroke="white" strokeWidth="2"/>
+                <line x1="50" y1="80" x2="50" y2="95" stroke="white" strokeWidth="2"/>
+                <line x1="20" y1="50" x2="5" y2="50" stroke="white" strokeWidth="2"/>
+                <line x1="80" y1="50" x2="95" y2="50" stroke="white" strokeWidth="2"/>
+                <line x1="35" y1="35" x2="25" y2="25" stroke="white" strokeWidth="2"/>
+                <line x1="65" y1="35" x2="75" y2="25" stroke="white" strokeWidth="2"/>
+                <line x1="35" y1="65" x2="25" y2="75" stroke="white" strokeWidth="2"/>
+                <line x1="65" y1="65" x2="75" y2="75" stroke="white" strokeWidth="2"/>
+              </svg>
+            )}  
+          </button>
+
+          
+
         </div>
         {/* link end */}
       </motion.div>

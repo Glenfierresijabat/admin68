@@ -79,6 +79,8 @@ const Navbar = () => {
       });
 
       setOpen(true);
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("userName");
       setMsg({ severity : "success", desc: "Logout Success"});
     } catch (error) {
       if (error.response) {

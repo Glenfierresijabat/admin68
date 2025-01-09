@@ -6,7 +6,7 @@ import { AuthContext } from "../../context/authContext";
 
 const Header = () => {
   const date = new Date().toDateString().slice(4);
-  const { theme } = useContext(ThemeContext); 
+  const { theme, layoutTheme } = useContext(ThemeContext); 
 
   const { name } = useContext(AuthContext);
 
@@ -15,7 +15,7 @@ const Header = () => {
       className={`border-b-2 py-4 px-6 flex items-center justify-between ${theme.name}`}
     >
       <div className="flex">
-        <div className="font-bold text-lg">{name}</div>
+        <div className={`font-bold text-lg ${layoutTheme === 'bg-defaultBlack' ? 'text-white' : ''}`}>{name}</div>
         <div className="ms-6 text-gray-03">{date}</div>
       </div>
       <div className="flex">
